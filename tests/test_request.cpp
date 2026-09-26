@@ -1,13 +1,13 @@
-#include "http_client/request.hpp"
+#include "http/request.hpp"
 
 #include <string>
 
 #include "doctest/doctest.h"
-#include "http_client/url.hpp"
+#include "http/url.hpp"
 
-using http_client::FormatRequest;
-using http_client::Method;
-using http_client::ParseUrl;
+using http::FormatRequest;
+using http::Method;
+using http::ParseUrl;
 
 namespace {
 std::string AsString(const std::vector<std::uint8_t>& bytes) { return {bytes.begin(), bytes.end()}; }

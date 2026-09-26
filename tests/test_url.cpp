@@ -1,8 +1,8 @@
-#include "http_client/url.hpp"
+#include "http/url.hpp"
 
 #include "doctest/doctest.h"
 
-using http_client::ParseUrl;
+using http::ParseUrl;
 
 TEST_CASE("ParseUrl: http with default port") {
     const auto u = ParseUrl("http://example.com/path");

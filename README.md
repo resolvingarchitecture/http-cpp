@@ -1,8 +1,8 @@
-# http-client (C++)
+# http (C++)
 
 A direct (non-anonymized) HTTP/HTTPS client for **1M5**: real TLS via
 OpenSSL, no proxy required (an optional SOCKS5 proxy is supported — see
-below). A C++ port of [`http-client-java`](https://github.com/resolvingarchitecture/http-client-java)'s
+below). A C++ port of [`http-java`](https://github.com/resolvingarchitecture/http-java)'s
 `ra.http.HTTPService` — client (`sendOut`) half only, see `DESIGN.md`.
 Header-only, C++20, POSIX sockets + OpenSSL.
 
@@ -17,9 +17,9 @@ in the Java port).
 ## Use
 
 ```cpp
-#include "http_client/http_client.hpp"
+#include "http/http.hpp"
 
-http_client::HttpClient client;                 // or HttpClient(cfg)
+http::HttpClient client;                 // or HttpClient(cfg)
 client.Start();
 
 auto env = ra::common::Envelope::Document();
@@ -61,7 +61,7 @@ internet access.
 ## Identity metadata leaks
 
 Checked and fixed (2026-09-26), the same class of bug found and fixed in
-`http-client-java`'s OkHttp-based client: `FormatRequest`'s default
+`http-java`'s OkHttp-based client: `FormatRequest`'s default
 `User-Agent` used to be the literal string `"ra-http-client"` - itself a
 fingerprinting leak (it identifies exactly which project made the request,
 an even smaller anonymity set than a generic library name) whenever a

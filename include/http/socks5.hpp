@@ -16,10 +16,10 @@
 #include <string>
 #include <vector>
 
-#include "http_client/tcp_stream.hpp"
+#include "http/tcp_stream.hpp"
 #include "ra_common/exception.hpp"
 
-namespace http_client {
+namespace http {
 
 namespace detail {
 /// Reads exactly `n` bytes from `fd` (already has `SO_RCVTIMEO` set).
@@ -91,4 +91,4 @@ inline TcpStream ConnectThroughSocks5(const std::string& proxy_host, std::uint16
     return stream;
 }
 
-}  // namespace http_client
+}  // namespace http

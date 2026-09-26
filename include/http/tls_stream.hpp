@@ -12,11 +12,11 @@
 #include <stdexcept>
 #include <string>
 
-#include "http_client/io_stream.hpp"
-#include "http_client/tcp_stream.hpp"
+#include "http/io_stream.hpp"
+#include "http/tcp_stream.hpp"
 #include "ra_common/exception.hpp"
 
-namespace http_client {
+namespace http {
 
 /// Wraps a `TcpStream` in a TLS client session. `trust_all` skips certificate
 /// verification entirely (self-signed/test servers only - never for
@@ -116,4 +116,4 @@ private:
     SSL* ssl_ = nullptr;
 };
 
-}  // namespace http_client
+}  // namespace http

@@ -6,7 +6,7 @@
 #include <cstddef>
 #include <cstdint>
 
-namespace http_client {
+namespace http {
 
 class IoStream {
 public:
@@ -19,4 +19,4 @@ public:
     virtual std::size_t RecvSome(std::uint8_t* buf, std::size_t cap) = 0;
 };
 
-}  // namespace http_client
+}  // namespace http

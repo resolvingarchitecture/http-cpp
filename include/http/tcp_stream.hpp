@@ -18,10 +18,10 @@
 #include <cstring>
 #include <string>
 
-#include "http_client/io_stream.hpp"
+#include "http/io_stream.hpp"
 #include "ra_common/exception.hpp"
 
-namespace http_client {
+namespace http {
 
 /// Connects to `host:port` with a connect-timeout, returning the connected
 /// fd (blocking mode restored) or -1 on failure/timeout.
@@ -138,4 +138,4 @@ private:
     int fd_;
 };
 
-}  // namespace http_client
+}  // namespace http

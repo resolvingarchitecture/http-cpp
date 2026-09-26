@@ -1,13 +1,13 @@
-# http-client (C++) — Design
+# http (C++) — Design
 
 A direct HTTP/HTTPS client for use as the HTTP **protocol service** by a
 future `1m5-core-cpp` — the clearnet fallback alongside `i2p-cpp` and
 `tor-client-cpp`. A C++ port of `ra.http.HTTPService`
-(`http-client-java`), client half only.
+(`http-java`), client half only.
 
 ## Where it sits
 
-    (future) 1m5-core-cpp  ──wraps──►  http_client::HttpClient
+    (future) 1m5-core-cpp  ──wraps──►  http::HttpClient
                                                │
                                    TCP(+TLS) per request/hop
                                                │
@@ -20,11 +20,11 @@ after `tor-client-cpp` and changing that one's dependency graph is out of
 scope here. `socks5.hpp` in this repo is a standalone copy of the same
 handshake so this library has no dependency on `tor-client-cpp` (layering
 runs client-under-Tor, not the other way — mirrors `TORClientService extends
-HTTPService` in `http-client-java`/`tor-client-java`).
+HTTPService` in `http-java`/`tor-java`).
 
 ## Why OpenSSL, not libcurl
 
-`http-client-java` uses OkHttp. The natural C++ analogue for a
+`http-java` uses OkHttp. The natural C++ analogue for a
 full-featured HTTP+TLS client is libcurl, but `libcurl`'s *development*
 headers (`curl/curl.h`) aren't guaranteed present in every environment this
 repo builds in — only runtime `.so`s are, in general — whereas `libssl-dev`
@@ -59,7 +59,7 @@ C++ port in this monorepo uses.
                  via `Content-Length`, chunked `Transfer-Encoding`, or
                  read-to-EOF (reachable because this client always sends
                  `Connection: close`)
-    http_client  `HttpClient` - config, status, `Start()`/`Stop()`/`Send()`,
+    http  `HttpClient` - config, status, `Start()`/`Stop()`/`Send()`,
                  redirect following
 
 Header-only (matches `ra-common-cpp`/`tor-client-cpp`/`i2p-cpp`'s
@@ -144,7 +144,7 @@ Worth revisiting if this ever sits in a hot path with high request volume
 
 Required standard for any HTTP client this project relies on for anonymized
 traffic (Tor/I2P), enforced here and checked against every sibling
-`http-client-*` port: no default header, response header, or connection
+`http-*` port: no default header, response header, or connection
 behavior may reveal more about the requester than it has to. Two concrete
 bug shapes this actually takes, found via direct source/bytecode inspection
 of this project's own clients (not theoretical):
@@ -153,9 +153,9 @@ of this project's own clients (not theoretical):
   `FormatRequest` used to send `User-Agent: ra-http-client` whenever a
   caller didn't set one - fixed 2026-09-26 to a generic, widely-shared
   browser value instead. The equivalent bug was found and fixed the same
-  day in `http-client-java` (OkHttp's `BridgeInterceptor` injects
+  day in `http-java` (OkHttp's `BridgeInterceptor` injects
   `User-Agent: okhttp/<version>` by default - confirmed by disassembling
-  its actual bytecode) and in `http-client-python` (same literal
+  its actual bytecode) and in `http-python` (same literal
   `"ra-http-client"` default). A generic value doesn't just hide version
   info - Tor Browser's entire fingerprinting defense rests on every user
   presenting an *identical* signature; a bespoke one defeats that even if
@@ -166,11 +166,11 @@ of this project's own clients (not theoretical):
   `getaddrinfo` on `proxy_host` (the proxy's own address, safe to resolve
   locally) - never on the actual destination. This is the same requirement
   that was violated and fixed in `bitcoin-client-java`'s bitcoinj DNS-seed
-  lookups (`tor-client-java`, 2026-09-25) and is worth re-confirming after
+  lookups (`tor-java`, 2026-09-25) and is worth re-confirming after
   any change to `socks5.hpp`.
 
 A third bug shape - a server-identifying response header (`Server:
-Jetty(<version>)`, found and fixed in `http-client-java`'s Jetty-based
+Jetty(<version>)`, found and fixed in `http-java`'s Jetty-based
 inbound listener) doesn't apply here: this client is outbound-only, no
 server/inbound half exists (see "Not here" below). If an inbound listener
 is ever added, it needs the same check before use.

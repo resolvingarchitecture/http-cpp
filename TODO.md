@@ -23,7 +23,7 @@
       (gzip/br) compression.
 - [ ] Local server / SPA / WebSocket hosting, if a future `1m5-core-cpp`
       ever needs the desktop RPC API or Tor hidden-service handling that
-      `http-client-java`'s `EnvelopeHandler`/`SPAHandler`/
+      `http-java`'s `EnvelopeHandler`/`SPAHandler`/
       `EnvelopeWebSocket`/`EnvelopeJSONDataHandler`/
       `EnvelopeProxyDataHandler` provide there. No other language port has
       needed this yet either.

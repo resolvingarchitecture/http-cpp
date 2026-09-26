@@ -13,10 +13,10 @@
 #include <string>
 #include <vector>
 
-#include "http_client/io_stream.hpp"
+#include "http/io_stream.hpp"
 #include "ra_common/exception.hpp"
 
-namespace http_client {
+namespace http {
 
 struct Response {
     int status_code = 0;
@@ -153,4 +153,4 @@ inline Response ReadResponse(IoStream& stream, std::vector<std::uint8_t>& carry)
     return resp;
 }
 
-}  // namespace http_client
+}  // namespace http

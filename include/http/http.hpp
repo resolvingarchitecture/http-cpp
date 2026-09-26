@@ -18,15 +18,15 @@
 #include "ra_common/envelope.hpp"
 #include "ra_common/route/external_route.hpp"
 
-#include "http_client/io_stream.hpp"
-#include "http_client/request.hpp"
-#include "http_client/response.hpp"
-#include "http_client/socks5.hpp"
-#include "http_client/tcp_stream.hpp"
-#include "http_client/tls_stream.hpp"
-#include "http_client/url.hpp"
+#include "http/io_stream.hpp"
+#include "http/request.hpp"
+#include "http/response.hpp"
+#include "http/socks5.hpp"
+#include "http/tcp_stream.hpp"
+#include "http/tls_stream.hpp"
+#include "http/url.hpp"
 
-namespace http_client {
+namespace http {
 
 constexpr std::chrono::milliseconds kDefaultTimeout{60'000};
 constexpr int kDefaultMaxRedirects = 5;
@@ -265,10 +265,10 @@ private:
             case 511: reason = "BLOCKED-AUTHN"; break;
             default: return;
         }
-        std::cerr << "http_client: " << url << " -> " << status << " (" << reason << ")\n";
+        std::cerr << "http: " << url << " -> " << status << " (" << reason << ")\n";
     }
 
     Status status_ = Status::Disconnected;
 };
 
-}  // namespace http_client
+}  // namespace http

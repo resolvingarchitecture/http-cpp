@@ -1,4 +1,4 @@
-#include "http_client/http_client.hpp"
+#include "http/http.hpp"
 
 #include <arpa/inet.h>
 #include <netinet/in.h>
@@ -31,7 +31,7 @@ std::uint16_t Listen(int& fd) {
 }  // namespace
 
 TEST_CASE("Send before Start reports not connected") {
-    http_client::HttpClient client;
+    http::HttpClient client;
     auto env = ra::common::Envelope::Document();
     env.url = "http://example.com/";
     env.action = ra::common::EnvelopeAction::Get;
@@ -41,7 +41,7 @@ TEST_CASE("Send before Start reports not connected") {
 }
 
 TEST_CASE("Send without a URL or destination route errors") {
-    http_client::HttpClient client;
+    http::HttpClient client;
     client.Start();
     auto env = ra::common::Envelope::Document();
     env.action = ra::common::EnvelopeAction::Get;
@@ -51,7 +51,7 @@ TEST_CASE("Send without a URL or destination route errors") {
 }
 
 TEST_CASE("Send without an action errors") {
-    http_client::HttpClient client;
+    http::HttpClient client;
     client.Start();
     auto env = ra::common::Envelope::Document();
     env.url = "http://example.com/";
@@ -75,7 +75,7 @@ TEST_CASE("GET against a local plain-HTTP server returns the body") {
         ::close(c);
     });
 
-    http_client::HttpClient client;
+    http::HttpClient client;
     client.Start();
     auto env = ra::common::Envelope::Document();
     env.url = "http://127.0.0.1:" + std::to_string(port) + "/test";
@@ -107,7 +107,7 @@ TEST_CASE("POST sends the envelope body and a non-2xx status is an error") {
         ::close(c);
     });
 
-    http_client::HttpClient client;
+    http::HttpClient client;
     client.Start();
     auto env = ra::common::Envelope::Document();
     env.url = "http://127.0.0.1:" + std::to_string(port) + "/submit";
@@ -129,7 +129,7 @@ TEST_CASE("POST sends the envelope body and a non-2xx status is an error") {
 // the Java suite) but will simply fail if the build environment has none.
 
 TEST_CASE("live: plain HTTP GET follows the redirect to HTTPS") {
-    http_client::HttpClient client;
+    http::HttpClient client;
     client.Start();
     auto env = ra::common::Envelope::Document();
     env.url = "http://resolvingarchitecture.io";
@@ -147,7 +147,7 @@ TEST_CASE("live: plain HTTP GET follows the redirect to HTTPS") {
 }
 
 TEST_CASE("live: HTTPS GET") {
-    http_client::HttpClient client;
+    http::HttpClient client;
     client.Start();
     auto env = ra::common::Envelope::Document();
     env.url = "https://resolvingarchitecture.io";

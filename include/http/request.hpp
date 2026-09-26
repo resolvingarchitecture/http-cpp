@@ -7,9 +7,9 @@
 #include <string>
 #include <vector>
 
-#include "http_client/url.hpp"
+#include "http/url.hpp"
 
-namespace http_client {
+namespace http {
 
 enum class Method { Get, Post, Put, Delete };
 
@@ -54,4 +54,4 @@ inline std::vector<std::uint8_t> FormatRequest(Method method, const ParsedUrl& u
     return out;
 }
 
-}  // namespace http_client
+}  // namespace http

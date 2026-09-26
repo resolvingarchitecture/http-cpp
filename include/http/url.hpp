@@ -10,7 +10,7 @@
 
 #include "ra_common/exception.hpp"
 
-namespace http_client {
+namespace http {
 
 struct ParsedUrl {
     bool https = false;
@@ -55,4 +55,4 @@ inline ParsedUrl ParseUrl(const std::string& url) {
     return ParsedUrl{https, host, port, path};
 }
 
-}  // namespace http_client
+}  // namespace http
