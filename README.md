@@ -53,7 +53,7 @@ Depends on `ra-common-cpp` (pulled in via relative `add_subdirectory` from
 `../../common/ra-common-cpp`) and system OpenSSL (`libssl-dev` — no
 `libcurl` dev headers required; see `DESIGN.md`).
 
-Two tests hit the real `resolvingarchitecture.io` over the network
+Two tests hit the real `resolvingarchitecture.dev` over the network
 (mirrors `HTTPServiceTest.java`); they report via `MESSAGE` and return early
 rather than failing the suite if the build environment has no outbound
 internet access.

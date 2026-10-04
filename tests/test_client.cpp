@@ -132,7 +132,7 @@ TEST_CASE("live: plain HTTP GET follows the redirect to HTTPS") {
     http::HttpClient client;
     client.Start();
     auto env = ra::common::Envelope::Document();
-    env.url = "http://resolvingarchitecture.io";
+    env.url = "http://resolvingarchitecture.dev";
     env.action = ra::common::EnvelopeAction::Get;
     const bool ok = client.Send(env);
     if (!ok) {
@@ -150,7 +150,7 @@ TEST_CASE("live: HTTPS GET") {
     http::HttpClient client;
     client.Start();
     auto env = ra::common::Envelope::Document();
-    env.url = "https://resolvingarchitecture.io";
+    env.url = "https://resolvingarchitecture.dev";
     env.action = ra::common::EnvelopeAction::Get;
     const bool ok = client.Send(env);
     if (!ok) {
